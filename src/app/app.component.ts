@@ -9,20 +9,26 @@ import { Apollo, gql } from 'apollo-angular';
 export class AppComponent implements OnInit {
   title = 'graphql';
   constructor(private apollo: Apollo) {}
+  companyDeatils;
   ngOnInit(): void {
     this.apollo
       .watchQuery({
         query: gql`
           {
-            rates(currency: "INR") {
-              currency
-              rate
+            company {
+              ceo
+              coo
+              cto
+              founded
             }
           }
         `,
       })
       .valueChanges.subscribe((res: any) => {
-        console.log(res.data);
+        if (res.data) {
+          this.companyDeatils = res.data;
+          console.log(this.companyDeatils);
+        }
         console.log(res.loading);
         console.log(res.error);
       });

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
-
+import { query } from './tickets/tickets';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,16 +13,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.apollo
       .watchQuery({
-        query: gql`
-          {
-            company {
-              ceo
-              coo
-              cto
-              founded
-            }
-          }
-        `,
+        query: query,
       })
       .valueChanges.subscribe((res: any) => {
         if (res.data) {
